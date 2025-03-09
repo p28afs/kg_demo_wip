@@ -1,0 +1,8 @@
+streamlit
+pandas
+PyMuPDF
+openai
+sentence-transformers
+faiss-cpu
+pyvis
+networkx
