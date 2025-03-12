@@ -7,26 +7,39 @@ st.title("Live Logs from Multiple Files")
 # Create a placeholder for logs in Streamlit
 log_placeholder = st.empty()
 
+# ✅ Define a Streamlit handler (for UI logs)
 class StreamlitLogHandler(logging.Handler):
-    """ Custom log handler to display logs in Streamlit dynamically. """
-    log_messages = []
+    log_messages = []  # Store log history
 
     def emit(self, record):
         log_message = self.format(record)
         self.log_messages.append(log_message)
         log_placeholder.text_area("Logs", "\n".join(self.log_messages), height=300)
 
-# Step 1: Configure the global logging system
-logger = logging.getLogger()  # Get the **root** logger
-logger.setLevel(logging.INFO)  # Set global log level
+# ✅ Set up a file logger for **detailed logging**
+file_logger = logging.getLogger("detailed_logger")
+file_logger.setLevel(logging.DEBUG)  # Capture all logs
 
-# Step 2: Attach the Streamlit handler (this makes it GLOBAL)
-log_handler = StreamlitLogHandler()
-log_formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-log_handler.setFormatter(log_formatter)
-logger.addHandler(log_handler)  # <-- 🔥 This attaches the handler globally!
+file_handler = logging.FileHandler("app.log")  # Log file
+file_formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+file_handler.setFormatter(file_formatter)
+file_logger.addHandler(file_handler)
 
-# Step 3: Call file1.py function (which calls file2.py)
-logger.info("🚀 Starting process...")
+# ✅ Set up a UI logger for **selected logs**
+ui_logger = logging.getLogger("ui_logger")
+ui_logger.setLevel(logging.INFO)  # Only important logs
+
+ui_handler = StreamlitLogHandler()
+ui_formatter = logging.Formatter("%(levelname)s - %(message)s")
+ui_handler.setFormatter(ui_formatter)
+ui_logger.addHandler(ui_handler)
+
+# ✅ Test logging
+file_logger.debug("🔍 Debug log - Only in file")  # Only in log file
+file_logger.info("ℹ️ Info log - In file")  # Only in log file
+ui_logger.info("✅ UI log - Visible in Streamlit UI")  # Shown in UI
+
+# Call file1 function
+ui_logger.info("🚀 Starting process...")
 some_method_in_file1()
-logger.info("✅ Process completed successfully!")
+ui_logger.info("✅ Process completed successfully!")
