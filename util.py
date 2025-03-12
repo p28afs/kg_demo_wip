@@ -21,4 +21,13 @@ def show_existing_knowledge():
                 df["Download"] = df.apply(lambda row: f"[doc](file://{row['doc_path']}) [meta](file://{row['meta_path']})", axis=1)
 
                 # Display the table with the new column
-                st.dataframe(df[['doc_name', 'doc_version', 'category', 'super_department', 'department', 'timestamp', 'Download']])
+                for _, row in df.iterrows():
+    doc_link = f"[doc](file://{row['doc_path']})"
+    meta_link = f"[meta](file://{row['meta_path']})"
+
+    # Render table row using Markdown to ensure clickable links
+    st.markdown(
+        f"| {row['doc_name']} | {row['doc_version']} | {row['category']} | {row['super_department']} | {row['department']} | {row['timestamp']} | {doc_link} {meta_link} |",
+        unsafe_allow_html=True
+    )
+
