@@ -1,0 +1,32 @@
+import logging
+import streamlit as st
+from file1 import some_method_in_file1
+
+st.title("Live Logs from Multiple Files")
+
+# Create a placeholder for logs in Streamlit
+log_placeholder = st.empty()
+
+class StreamlitLogHandler(logging.Handler):
+    """ Custom log handler to display logs in Streamlit dynamically. """
+    log_messages = []
+
+    def emit(self, record):
+        log_message = self.format(record)
+        self.log_messages.append(log_message)
+        log_placeholder.text_area("Logs", "\n".join(self.log_messages), height=300)
+
+# Step 1: Configure the global logging system
+logger = logging.getLogger()  # Get the **root** logger
+logger.setLevel(logging.INFO)  # Set global log level
+
+# Step 2: Attach the Streamlit handler (this makes it GLOBAL)
+log_handler = StreamlitLogHandler()
+log_formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+log_handler.setFormatter(log_formatter)
+logger.addHandler(log_handler)  # <-- 🔥 This attaches the handler globally!
+
+# Step 3: Call file1.py function (which calls file2.py)
+logger.info("🚀 Starting process...")
+some_method_in_file1()
+logger.info("✅ Process completed successfully!")
