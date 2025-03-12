@@ -61,3 +61,4 @@ def show_existing_knowledge():
                     # Render row using Markdown for text, but buttons for downloads
                     row_markdown = f"| {row['doc_name']} | {row['doc_version']} | {row['category']} | {row['super_department']} | {row['department']} | {row['timestamp']} | {doc_button} {meta_button} |"
                     st.markdown(row_markdown, unsafe_allow_html=True)
+    st.success("✅ Process completed!")
