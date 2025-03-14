@@ -5,6 +5,20 @@ def web_search(query):
     return result
 
 
+import openai
+
+def web_search(query):
+    response = openai.ChatCompletion.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": query}],
+        tools=[{"type": "web_search"}]  # Enabling web search
+    )
+    return response["choices"][0]["message"]["content"]
+
+query = "Latest advancements in AI?"
+print(web_search(query))
+
+
 
 
 from langchain.vectorstores.neo4j_vector import Neo4jVector
