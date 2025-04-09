@@ -1,21 +1,45 @@
-"Please decompose the following complex regulatory reporting query into clear, standalone subquestions. Each subquestion should focus on one distinct aspect of the overall query.
+Prompt:
+"Please analyze the following financial regulatory reporting query and decompose it into multiple stand-alone subquestions. Each subquestion should cover a single aspect of the overall query. In your decomposition, make sure to address all applicable aspects, including:
 
-Example:
-Original Query:
+Data Sourcing: Identify the sources of the data, the methods of data collection, and any data integration points.
+
+Eligibility Rules: Specify the criteria for determining which data or transactions qualify for inclusion in the report.
+
+Validations: Outline the checks, accuracy measures, and integrity validations required to ensure the data is correct and consistent.
+
+Formatting: Describe the expected report structure or file format, including layout, message structure, or data format specifications.
+
+Submission: Explain the protocols, channels, or systems used to submit the report, including any timing or procedural requirements.
+
+Exceptions: Detail how exceptions or error conditions should be handled, including guidelines for managing missing or abnormal data.
+
+Controls: Elaborate on the internal and external controls that need to be in place to monitor data quality and the reporting process.
+
+Compliance: Specify the regulatory requirements, industry standards, or legal obligations that the report must meet, and how adherence is verified.
+
+Additional Aspects: If applicable, consider areas such as data aggregation, reconciliation, audit trails, metadata requirements, or historical comparisons.
+
+Important: Ensure that each subquestion includes or repeats the key entities or regulatory terms mentioned in the original query, so that the context is always preserved.
+
+Example Query:
 'What are details to be EMIR3 FCA transaction reported for PTRR ID, and its format and validations'
 
-Expected Subquestions:
+Example Expected Output (as a JSON array):
 
-What are the specific reporting details required for an EMIR3 FCA transaction involving PTRR ID?
+arduino
+Copy
+[
+  "What are the specific data sourcing requirements for EMIR3 FCA transactions related to PTRR ID, including the identification and integration of data sources?",
+  "What eligibility rules determine which EMIR3 FCA transactions involving PTRR ID should be included in the report?",
+  "What validations and data quality checks must be applied to EMIR3 FCA transaction reports associated with PTRR ID?",
+  "What is the expected formatting or structure for EMIR3 FCA transaction reports concerning PTRR ID?",
+  "What submission protocols must be followed when submitting EMIR3 FCA transaction reports for PTRR ID?",
+  "How should exceptions and error cases be managed in the EMIR3 FCA transaction reporting process for PTRR ID?",
+  "What controls are required to monitor and ensure the integrity of the reporting process for EMIR3 FCA transactions involving PTRR ID?",
+  "What are the compliance requirements for reporting EMIR3 FCA transactions for PTRR ID, and how is adherence verified?",
+  "Are there any additional considerations, such as data aggregation, reconciliation, or metadata requirements, for EMIR3 FCA transaction reporting involving PTRR ID?"
+]
+Now, please apply this approach to decompose the following query:
+[Insert your new financial regulatory reporting query here]
 
-What is the expected format for the EMIR3 FCA transaction report?
-
-What validations or checks must be applied to ensure compliance with the report requirements?
-
-Now, please apply this approach to the following query:
-[Insert your new complex query here]
-
-Output Instruction: Return your result as a JSON array of strings so that each subquestion is an element in the array.
-
-For example:
-["Subquestion 1", "Subquestion 2", "Subquestion 3"]"
+Output Instruction: Return your result as a JSON array of strings, with each string representing a self-contained subquestion that covers one of the aspects listed above and includes the key entities from the original query."
