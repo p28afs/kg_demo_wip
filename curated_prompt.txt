@@ -1,0 +1,21 @@
+"Please decompose the following complex regulatory reporting query into clear, standalone subquestions. Each subquestion should focus on one distinct aspect of the overall query.
+
+Example:
+Original Query:
+'What are details to be EMIR3 FCA transaction reported for PTRR ID, and its format and validations'
+
+Expected Subquestions:
+
+What are the specific reporting details required for an EMIR3 FCA transaction involving PTRR ID?
+
+What is the expected format for the EMIR3 FCA transaction report?
+
+What validations or checks must be applied to ensure compliance with the report requirements?
+
+Now, please apply this approach to the following query:
+[Insert your new complex query here]
+
+Output Instruction: Return your result as a JSON array of strings so that each subquestion is an element in the array.
+
+For example:
+["Subquestion 1", "Subquestion 2", "Subquestion 3"]"
