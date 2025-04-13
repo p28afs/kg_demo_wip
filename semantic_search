@@ -1,0 +1,24 @@
+def run_semantic_search(query, retriever, top_k=5):
+    results = retriever.get_relevant_documents(query)
+    return results[:top_k]  # Return top-K documents
+
+from collections import defaultdict
+
+def run_consensus_search(query, retriever, top_k=5, runs=5):
+    hit_counter = defaultdict(int)
+    doc_map = {}
+
+    for i in range(runs):
+        results = run_semantic_search(query, retriever, top_k)
+        for doc in results:
+            doc_id = doc.metadata.get("source", "") + "|" + doc.page_content.strip()[:50]  # basic dedup key
+            hit_counter[doc_id] += 1
+            doc_map[doc_id] = doc  # store the full doc
+
+    # Filter based on frequency across runs
+    consistent_docs = [doc_map[doc_id] for doc_id, count in hit_counter.items() if count >= runs // 2]
+
+    # Optionally sort by frequency
+    consistent_docs.sort(key=lambda d: -hit_counter[d.metadata.get("source", "") + "|" + d.page_content.strip()[:50]])
+
+    return consistent_docs    
